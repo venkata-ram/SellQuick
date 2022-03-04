@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.venkat.sellquick.HomeFragment"
+        android:name="com.venkat.sellquick.fragments.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
-        android:name="com.venkat.sellquick.CartFragment"
+        android:name="com.venkat.sellquick.fragments.cart.CartFragment"
         android:label="fragment_cart"
         tools:layout="@layout/fragment_cart" >
     </fragment>
