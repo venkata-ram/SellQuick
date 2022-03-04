@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/kvenk/AndroidStudioProjects/SellQuick/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/kvenk/AndroidStudioProjects/SellQuick/app/src/main/res/layout/cart_list_item.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/kvenk/AndroidStudioProjects/SellQuick/app/src/main/res/layout/fragment_cart.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/kvenk/AndroidStudioProjects/SellQuick/app/src/main/res/layout/fragment_home.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/kvenk/AndroidStudioProjects/SellQuick/app/src/main/res/layout/home_list_item.xml" value="0.2" />

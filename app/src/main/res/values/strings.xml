@@ -9,5 +9,7 @@
     <string name="item_price">Rs. 200</string>
     <string name="add">add +</string>
     <string name="item_image">item image</string>
+    <string name="remove">Remove</string>
+    <string name="place_order">place order</string>
 
 </resources>

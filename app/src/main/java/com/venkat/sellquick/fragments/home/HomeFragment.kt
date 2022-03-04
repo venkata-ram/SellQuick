@@ -22,14 +22,22 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = binding.root
+       setUpRecyclerView()
+        return view
+    }
+
+    private fun setUpRecyclerView(){
         binding.homeRecyclerview.layoutManager = LinearLayoutManager(requireContext())
         val items = arrayListOf<Item>()
+        addItems(items)
+        binding.homeRecyclerview.adapter = HomeRecyclerViewAdapter(items)
+    }
+
+    private fun addItems(items : ArrayList<Item>){
         items.add(Item("Noodles",175.0,0, 0))
         items.add(Item("Semiya",175.0,0, 0))
         items.add(Item("Tooth paste",175.0,0, 0))
         items.add(Item("Tooth brush",175.0,0, 0))
-        binding.homeRecyclerview.adapter = HomeRecyclerViewAdapter(items)
-        return view
     }
 
 }
