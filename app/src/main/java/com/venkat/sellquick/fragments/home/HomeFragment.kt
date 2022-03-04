@@ -1,17 +1,21 @@
 package com.venkat.sellquick.fragments.home
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.venkat.sellquick.data.model.Item
+import com.venkat.sellquick.data.viewmodel.SharedViewModel
 import com.venkat.sellquick.databinding.FragmentHomeBinding
 import com.venkat.sellquick.fragments.home.adapter.HomeRecyclerViewAdapter
 
 
 class HomeFragment : Fragment() {
+    private val sharedViewModel: SharedViewModel by activityViewModels()
+
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
@@ -22,22 +26,23 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = binding.root
-       setUpRecyclerView()
+
+        setUpRecyclerView()
         return view
     }
 
-    private fun setUpRecyclerView(){
+    private fun setUpRecyclerView() {
         binding.homeRecyclerview.layoutManager = LinearLayoutManager(requireContext())
         val items = arrayListOf<Item>()
         addItems(items)
-        binding.homeRecyclerview.adapter = HomeRecyclerViewAdapter(items)
+        binding.homeRecyclerview.adapter = HomeRecyclerViewAdapter(items,sharedViewModel)
     }
 
-    private fun addItems(items : ArrayList<Item>){
-        items.add(Item("Noodles",175.0,0, 0))
-        items.add(Item("Semiya",175.0,0, 0))
-        items.add(Item("Tooth paste",175.0,0, 0))
-        items.add(Item("Tooth brush",175.0,0, 0))
+    private fun addItems(items: ArrayList<Item>) {
+        items.add(Item("Noodles", 175.0, 0, 0))
+        items.add(Item("Semiya", 175.0, 0, 0))
+        items.add(Item("Tooth paste", 175.0, 0, 0))
+        items.add(Item("Tooth brush", 175.0, 0, 0))
     }
 
 }

@@ -5,12 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.venkat.sellquick.data.model.Item
+import com.venkat.sellquick.data.viewmodel.SharedViewModel
 import com.venkat.sellquick.databinding.FragmentCartBinding
-import com.venkat.sellquick.databinding.FragmentHomeBinding
+import com.venkat.sellquick.fragments.cart.adapter.CartRecyclerViewAdapter
 
 
 class CartFragment : Fragment() {
+    private val sharedViewModel: SharedViewModel by activityViewModels()
     private var _binding: FragmentCartBinding? = null
     private val binding get() = _binding!!
 
@@ -22,6 +26,13 @@ class CartFragment : Fragment() {
         _binding = FragmentCartBinding.inflate(inflater, container, false)
         val view = binding.root
         binding.cartRecyclerview.layoutManager = LinearLayoutManager(requireContext())
+        var cartItems: ArrayList<Item>
+        sharedViewModel.cartItems.observe(viewLifecycleOwner){
+            cartItems = it
+            binding.cartRecyclerview.adapter = CartRecyclerViewAdapter(cartItems,sharedViewModel)
+        }
+
+
         return view
     }
 

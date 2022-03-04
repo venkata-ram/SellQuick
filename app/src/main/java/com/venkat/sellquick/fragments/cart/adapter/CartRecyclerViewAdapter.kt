@@ -5,11 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.venkat.sellquick.R
 import com.venkat.sellquick.data.model.Item
-import com.venkat.sellquick.fragments.home.adapter.HomeViewHolder
+import com.venkat.sellquick.data.viewmodel.SharedViewModel
 
-class CartRecyclerViewAdapter(val items : List<Item>) : RecyclerView.Adapter<CartViewHolder>() {
+class CartRecyclerViewAdapter(val items: List<Item>,val sharedViewModel: SharedViewModel) : RecyclerView.Adapter<CartViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val listItem = layoutInflater.inflate(R.layout.cart_list_item,parent,false)
@@ -22,7 +23,10 @@ class CartRecyclerViewAdapter(val items : List<Item>) : RecyclerView.Adapter<Car
         val price = "Rs. ${item.price}"
         holder.priceTextView.text = price
         holder.removeButton.setOnClickListener{
-
+            val message = "${item.name} removed from the cart..."
+            Snackbar.make(holder.view,message , Snackbar.LENGTH_SHORT).show()
+            sharedViewModel.removeItemFromCart(item)
+            notifyItemRemoved(position)
         }
     }
 

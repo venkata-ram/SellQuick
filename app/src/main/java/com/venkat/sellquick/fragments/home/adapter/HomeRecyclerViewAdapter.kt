@@ -1,14 +1,18 @@
 package com.venkat.sellquick.fragments.home.adapter
 
+import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.venkat.sellquick.R
 import com.venkat.sellquick.data.model.Item
+import com.venkat.sellquick.data.viewmodel.SharedViewModel
 
-class HomeRecyclerViewAdapter(val items : List<Item>) : RecyclerView.Adapter<HomeViewHolder>() {
+class HomeRecyclerViewAdapter(val items: List<Item>, val sharedViewModel: SharedViewModel) : RecyclerView.Adapter<HomeViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val listItem = layoutInflater.inflate(R.layout.home_list_item,parent,false)
@@ -21,7 +25,9 @@ class HomeRecyclerViewAdapter(val items : List<Item>) : RecyclerView.Adapter<Hom
         val price = "Rs. ${item.price}"
         holder.priceTextView.text = price
         holder.addButton.setOnClickListener{
-
+            sharedViewModel.addItemToCart(item)
+            val message = "${item.name} added to cart..."
+            Snackbar.make(holder.view,message , Snackbar.LENGTH_SHORT).show()
         }
     }
 
