@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.venkat.sellquick.R
 import com.venkat.sellquick.data.model.Item
 import com.venkat.sellquick.data.viewmodel.SharedViewModel
 import com.venkat.sellquick.databinding.FragmentHomeBinding
@@ -35,7 +37,8 @@ class HomeFragment : Fragment() {
         binding.homeRecyclerview.layoutManager = LinearLayoutManager(requireContext())
         val items = arrayListOf<Item>()
         addItems(items)
-        binding.homeRecyclerview.adapter = HomeRecyclerViewAdapter(items,sharedViewModel)
+        val bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.activity_main_bottom_navigation_view)
+        binding.homeRecyclerview.adapter = HomeRecyclerViewAdapter(items,sharedViewModel,requireActivity(),bottomNavigationView)
     }
 
     private fun addItems(items: ArrayList<Item>) {

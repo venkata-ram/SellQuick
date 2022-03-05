@@ -1,22 +1,27 @@
 package com.venkat.sellquick.data.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.venkat.sellquick.data.model.Item
 
 class SharedViewModel : ViewModel() {
-    var cartItems = MutableLiveData<ArrayList<Item>>()
+    private var _cartItems = MutableLiveData<ArrayList<Item>>()
+    val cartItems :LiveData<ArrayList<Item>>
+        get() = _cartItems
 
     init {
-        cartItems.value = arrayListOf<Item>()
+        _cartItems.value = arrayListOf<Item>()
     }
 
     fun addItemToCart(item : Item){
-        cartItems.value?.add(0,item)
+        _cartItems.value?.add(0,item)
+        _cartItems.value = _cartItems.value
     }
 
     fun removeItemFromCart(item:Item){
-        cartItems.value?.remove(item)
+        _cartItems.value?.remove(item)
+        _cartItems.value = _cartItems.value
     }
 
 

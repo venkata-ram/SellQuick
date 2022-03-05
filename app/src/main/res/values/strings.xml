@@ -11,5 +11,15 @@
     <string name="item_image">item image</string>
     <string name="remove">Remove</string>
     <string name="place_order">place order</string>
+    <string name="total_orders">Total orders</string>
+    <string name="order_count">250</string>
+    <string name="rank">1</string>
+    <string name="best_selling_rank">Best Selling Rank</string>
+    <string name="close">Close</string>
+    <string-array name="duration">
+        <item>1 hour</item>
+        <item>24 hours</item>
+        <item>1 week</item>
+    </string-array>
 
 </resources>

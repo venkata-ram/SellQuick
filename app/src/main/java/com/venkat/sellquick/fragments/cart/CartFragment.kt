@@ -26,11 +26,16 @@ class CartFragment : Fragment() {
         _binding = FragmentCartBinding.inflate(inflater, container, false)
         val view = binding.root
         binding.cartRecyclerview.layoutManager = LinearLayoutManager(requireContext())
-        var cartItems: ArrayList<Item>
         sharedViewModel.cartItems.observe(viewLifecycleOwner){
-            cartItems = it
-            binding.cartRecyclerview.adapter = CartRecyclerViewAdapter(cartItems,sharedViewModel)
+            val adapter = CartRecyclerViewAdapter(it,sharedViewModel)
+            binding.cartRecyclerview.adapter = adapter
+
+            if(it.isEmpty())
+                binding.placeOrderButton.visibility = View.GONE
+            else
+                binding.placeOrderButton.visibility = View.VISIBLE
         }
+
 
 
         return view
