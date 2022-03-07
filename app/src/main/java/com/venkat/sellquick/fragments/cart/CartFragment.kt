@@ -14,10 +14,12 @@ import com.venkat.sellquick.viewmodel.CartViewModel
 import com.venkat.sellquick.viewmodel.CartViewModelFactory
 import com.venkat.sellquick.databinding.FragmentCartBinding
 import com.venkat.sellquick.fragments.cart.adapter.CartRecyclerViewAdapter
+import com.venkat.sellquick.viewmodel.MainViewModel
 
 
 class CartFragment : Fragment() {
     private lateinit var cartViewModel: CartViewModel
+    private lateinit var mainViewModel: MainViewModel
 
     private var _binding: FragmentCartBinding? = null
     private val binding get() = _binding!!
@@ -33,6 +35,7 @@ class CartFragment : Fragment() {
         val repository = MainRepository(dao)
         val factory = CartViewModelFactory(repository)
         cartViewModel = ViewModelProvider(requireActivity(), factory).get(CartViewModel::class.java)
+        mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
 
         binding.cartRecyclerview.layoutManager = LinearLayoutManager(requireContext())
 
@@ -48,6 +51,7 @@ class CartFragment : Fragment() {
 
         binding.placeOrderButton.setOnClickListener {
             if (cartViewModel.placeOrder()) {
+                mainViewModel.increaseOrderCount()
                 val message = "Order placed successfully..."
                 Snackbar.make(it, message, Snackbar.LENGTH_SHORT).show()
             }

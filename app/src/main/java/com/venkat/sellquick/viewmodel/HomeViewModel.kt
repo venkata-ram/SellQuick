@@ -12,29 +12,7 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(private val repository: MainRepository) : ViewModel() {
     val items = repository.items
-    val orders = repository.orders
 
-
-    val cartItems = repository.cartItems
-
-    fun insertItem(item: Item) {
-        viewModelScope.launch {
-            repository.insertItem(item)
-        }
-    }
-
-    fun deleteItem(item: Item) {
-        viewModelScope.launch {
-            repository.deleteItem(item)
-        }
-    }
-
-
-    fun deleteAllItems() {
-        viewModelScope.launch {
-            repository.deleteAllItems()
-        }
-    }
 
     fun addItemToCart(item: Item) {
         viewModelScope.launch {

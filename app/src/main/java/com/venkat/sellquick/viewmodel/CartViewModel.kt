@@ -20,7 +20,7 @@ class CartViewModel(private val repository: MainRepository) : ViewModel(){
         }
     }
 
-    fun orderItems(order: Order){
+    private fun orderItems(order: Order){
         viewModelScope.launch {
             repository.insertOrders(order)
         }
