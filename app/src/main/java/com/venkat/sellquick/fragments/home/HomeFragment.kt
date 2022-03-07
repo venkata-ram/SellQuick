@@ -5,18 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.venkat.quickselldatabase.db.MainDatabase
+import com.venkat.quickselldatabase.db.MainRepository
 import com.venkat.sellquick.R
-import com.venkat.sellquick.data.model.Item
-import com.venkat.sellquick.data.viewmodel.SharedViewModel
 import com.venkat.sellquick.databinding.FragmentHomeBinding
 import com.venkat.sellquick.fragments.home.adapter.HomeRecyclerViewAdapter
+import com.venkat.sellquick.viewmodel.HomeViewModel
+import com.venkat.sellquick.viewmodel.HomeViewModelFactory
 
 
 class HomeFragment : Fragment() {
-    private val sharedViewModel: SharedViewModel by activityViewModels()
+
+    private lateinit var homeViewModel: HomeViewModel
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -28,6 +31,10 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = binding.root
+        val dao = MainDatabase.getInstance(requireActivity().application).mainDAO()
+        val repository = MainRepository(dao)
+        val factory = HomeViewModelFactory(repository)
+        homeViewModel = ViewModelProvider(requireActivity(), factory).get(HomeViewModel::class.java)
 
         setUpRecyclerView()
         return view
@@ -35,17 +42,19 @@ class HomeFragment : Fragment() {
 
     private fun setUpRecyclerView() {
         binding.homeRecyclerview.layoutManager = LinearLayoutManager(requireContext())
-        val items = arrayListOf<Item>()
-        addItems(items)
-        val bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.activity_main_bottom_navigation_view)
-        binding.homeRecyclerview.adapter = HomeRecyclerViewAdapter(items,sharedViewModel,requireActivity(),bottomNavigationView)
+        val bottomNavigationView =
+            requireActivity().findViewById<BottomNavigationView>(R.id.activity_main_bottom_navigation_view)
+        homeViewModel.items.observe(viewLifecycleOwner) {
+            binding.homeRecyclerview.adapter = HomeRecyclerViewAdapter(
+                it,
+                homeViewModel,
+                requireActivity(),
+                viewLifecycleOwner,
+                bottomNavigationView
+            )
+        }
+
     }
 
-    private fun addItems(items: ArrayList<Item>) {
-        items.add(Item("Noodles", 175.0, 0, 0))
-        items.add(Item("Semiya", 175.0, 0, 0))
-        items.add(Item("Tooth paste", 175.0, 0, 0))
-        items.add(Item("Tooth brush", 175.0, 0, 0))
-    }
 
 }

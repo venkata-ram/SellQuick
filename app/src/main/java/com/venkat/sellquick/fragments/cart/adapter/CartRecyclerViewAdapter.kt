@@ -6,14 +6,15 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
+import com.venkat.quickselldatabase.db.models.Item
 import com.venkat.sellquick.R
-import com.venkat.sellquick.data.model.Item
-import com.venkat.sellquick.data.viewmodel.SharedViewModel
+import com.venkat.sellquick.viewmodel.CartViewModel
 
-class CartRecyclerViewAdapter(val items: List<Item>,val sharedViewModel: SharedViewModel) : RecyclerView.Adapter<CartViewHolder>() {
+class CartRecyclerViewAdapter(val items: List<Item>, val cartViewModel: CartViewModel) :
+    RecyclerView.Adapter<CartViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val listItem = layoutInflater.inflate(R.layout.cart_list_item,parent,false)
+        val listItem = layoutInflater.inflate(R.layout.cart_list_item, parent, false)
         return CartViewHolder(listItem)
     }
 
@@ -22,10 +23,10 @@ class CartRecyclerViewAdapter(val items: List<Item>,val sharedViewModel: SharedV
         holder.nameTextView.text = item.name
         val price = "Rs. ${item.price}"
         holder.priceTextView.text = price
-        holder.removeButton.setOnClickListener{
+        holder.removeButton.setOnClickListener {
             val message = "${item.name} removed from the cart..."
-            Snackbar.make(holder.view,message , Snackbar.LENGTH_SHORT).show()
-            sharedViewModel.removeItemFromCart(item)
+            Snackbar.make(holder.view, message, Snackbar.LENGTH_SHORT).show()
+            cartViewModel.removeItemFromCart(item)
             notifyItemRemoved(position)
         }
     }
@@ -36,8 +37,8 @@ class CartRecyclerViewAdapter(val items: List<Item>,val sharedViewModel: SharedV
 }
 
 class CartViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-    val nameTextView : TextView = view.findViewById(R.id.cart_item_name_textview)
-    val priceTextView : TextView = view.findViewById(R.id.cart_item_price_textview)
-    val removeButton : TextView = view.findViewById(R.id.cart_item_remove_button)
+    val nameTextView: TextView = view.findViewById(R.id.cart_item_name_textview)
+    val priceTextView: TextView = view.findViewById(R.id.cart_item_price_textview)
+    val removeButton: TextView = view.findViewById(R.id.cart_item_remove_button)
 
 }
